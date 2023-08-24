@@ -1,0 +1,12 @@
+{{#each this.popups as |item|}}
+  <DPopup
+    @popupItem={{item}}
+    @context={{item.context}}
+    @appearance={{item.appearance}}
+    @undocked={{item.undocked}}
+    @focused={{item.focused}}
+    @onClose={{action "onClose" item}}
+    @onDock={{action "onDock" item}}
+    @onFocus={{action "onFocus" item}}
+  />
+{{/each}}

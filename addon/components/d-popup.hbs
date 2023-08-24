@@ -1,0 +1,84 @@
+{{#if this.appearance.customPopup}}
+  {{component
+    this.popupItem.component
+    context=this.popupItem.context
+    appearance=this.appearance
+    popupItem=this.popupItem
+    onClose=(action this.onClose this.popupItem)
+    status=this.status
+    minimize=(action this.onDock this.origin)
+    maximize=(action "undock" "full")
+    restore=(action "undock" "auto")
+    size=this.size
+    focus=this.onFocus
+    undocked=this.undocked
+  }}
+{{else if this.appearance.custom}}
+  {{component
+    this.popupItem.component
+    dockerItem=this.popupItem
+    context=this.popupItem.context
+    onClose=(action this.onClose this.popupItem)
+    header=(component
+      "d-popup/top-header"
+      icon=this.appearance.icon
+      title=this.appearance.title
+      status=this.status
+      minimize=(action this.onDock this.origin)
+      maximize=(action "undock" "full")
+      restore=(action "undock" "auto")
+      focus=this.onFocus
+      close=this.onClose
+    )
+    footer=(component "d-popup/bottom-footer" close=this.onClose)
+  }}
+{{else}}
+  {{#if this.appearance.header}}
+    {{#if this.popupItem.headerComponent}}
+      {{component
+        this.popupItem.headerComponent
+        dockerItem=this.popupItem
+        onClose=(action this.onClose this.popupItem)
+        context=this.popupItem.context
+      }}
+    {{else}}
+      <DPopup::TopHeader
+        @icon={{this.appearance.icon}}
+        @title={{this.appearance.title}}
+        @status={{this.status}}
+        @minimize={{action this.onDock this.origin}}
+        @maximize={{action "undock" "full"}}
+        @restore={{action "undock" "auto"}}
+        @focus={{this.onFocus}}
+        @close={{this.onClose}}
+      />
+    {{/if}}
+  {{/if}}
+  <DPopup::CenterBody
+    @undock={{action "undock" "auto"}}
+    @focus={{this.onFocus}}
+    @status={{this.status}}
+    @size={{size}}
+    @padding={{true}}
+    @undocked={{this.undocked}}
+  >
+    {{component
+      this.popupItem.component
+      dockerItem=this.popupItem
+      onClose=(action this.onClose this.popupItem)
+      context=this.popupItem.context
+    }}
+  </DPopup::CenterBody>
+  {{#if this.appearance.footer}}
+    {{#if this.popupItem.footerComponent}}
+      {{component
+        this.popupItem.footerComponent
+        dockerItem=this.popupItem
+        close=(action this.onClose this.popupItem)
+        context=this.popupItem.context
+      }}
+    {{else}}
+      <DPopup::BottomFooter @close={{this.onClose}} />
+    {{/if}}
+  {{/if}}
+{{/if}}

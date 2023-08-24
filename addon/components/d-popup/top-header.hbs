@@ -1,0 +1,47 @@
+<div
+  {{on "dblclick" this.doubleClick}}
+  class="popup-header primary-color popup-drag"
+>
+  {{#if this.args.icon}}
+    <FaIcon @icon={{@icon}} class="p-icon"/>
+  {{/if}}
+  <span class="p-label pl-2">
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{{this.finalTitle}}}
+    {{/if}}
+  </span>
+  {{!#if undocked}}
+  <a
+    href="#"
+    class="p-button"
+    aria-label="Minimize"
+    {{action this.args.minimize}}
+  >
+    <FaIcon @icon="minus" @prefix="fas"/>
+  </a>
+  {{!/if}}
+  {{#if (eq this.args.status "full")}}
+    <a
+      href="#"
+      class="p-button"
+      aria-label="Restore"
+      {{action this.args.restore}}
+    >
+      <FaIcon @icon="chevron-down" @prefix="fas"/>
+    </a>
+  {{else}}
+    <a
+      href="#"
+      class="p-button"
+      aria-label="Maximize"
+      {{action this.args.maximize}}
+    >
+      <FaIcon @icon="chevron-up" @prefix="fas"/>
+    </a>
+  {{/if}}
+  <a href="#" class="p-button" aria-label="Close" {{action this.args.close}}>
+    <FaIcon @icon="times" @prefix="fas"/>
+  </a>
+</div>

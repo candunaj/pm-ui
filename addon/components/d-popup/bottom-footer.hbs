@@ -1,0 +1,14 @@
+<div class="popup-footer popup-drag">
+  {{#if (has-block)}}
+    {{yield (hash close=this.args.close)}}
+  {{else}}
+    <BsButton
+      @onClick={{action this.args.close false}}
+      @title="Close"
+      @type="default"
+      class="float-right"
+    >
+      <FaIcon @icon="times" /> Close
+    </BsButton>
+  {{/if}}
+</div>
